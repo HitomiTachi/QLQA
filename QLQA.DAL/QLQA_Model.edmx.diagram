@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="98a589fe5c67452fbd4a47d939383727" Name="Diagram1">
+        <EntityTypeShape EntityType="QuanLyQuanAoModel.ACCOUNT" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyQuanAoModel.BRAND" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyQuanAoModel.CATEGORIES" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyQuanAoModel.EMPLOYERS" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyQuanAoModel.INVOICE" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyQuanAoModel.INVOICE_DETAILS" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyQuanAoModel.PRODUCTS" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="QuanLyQuanAoModel.FK__ACCOUNT__MaNV__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyQuanAoModel.FK__PRODUCTS__MaBran__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyQuanAoModel.FK__PRODUCTS__MaLoai__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyQuanAoModel.FK__INVOICE__MaNV__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyQuanAoModel.FK__INVOICE_D__MaHoa__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyQuanAoModel.FK__INVOICE_D__MaSan__45F365D3" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

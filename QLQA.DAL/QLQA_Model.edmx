@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QuanLyQuanAoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Account_Type" Type="bit" Nullable="false" />
+          <Property Name="MaNV" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BRAND">
+          <Key>
+            <PropertyRef Name="MaBrand" />
+          </Key>
+          <Property Name="MaBrand" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenBrand" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CATEGORIES">
+          <Key>
+            <PropertyRef Name="MaLoaiHang" />
+          </Key>
+          <Property Name="MaLoaiHang" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenLoaiHang" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPLOYERS">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenNV" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GioiTinh" Type="bit" Nullable="false" />
+          <Property Name="NgaySinh" Type="smalldatetime" Nullable="false" />
+          <Property Name="SoDienThoai" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Anh" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="INVOICE">
+          <Key>
+            <PropertyRef Name="MaHoaDon" />
+          </Key>
+          <Property Name="MaHoaDon" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="NgayLap" Type="smalldatetime" Nullable="false" />
+          <Property Name="MaNV" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INVOICE_DETAILS">
+          <Key>
+            <PropertyRef Name="MaHoaDon" />
+            <PropertyRef Name="MaSanPham" />
+          </Key>
+          <Property Name="MaHoaDon" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaSanPham" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SoLuong" Type="smallint" Nullable="false" />
+          <Property Name="TriGia" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCTS">
+          <Key>
+            <PropertyRef Name="MaSanPham" />
+          </Key>
+          <Property Name="MaSanPham" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenSanPham" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mau" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Size" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="GiaBan" Type="float" Nullable="false" />
+          <Property Name="SoLuongTon" Type="int" Nullable="false" />
+          <Property Name="TinhTrang" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaLoaiHang" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaBrand" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__ACCOUNT__MaNV__4316F928">
+          <End Role="EMPLOYERS" Type="Self.EMPLOYERS" Multiplicity="1" />
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYERS">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="ACCOUNT">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__INVOICE__MaNV__440B1D61">
+          <End Role="EMPLOYERS" Type="Self.EMPLOYERS" Multiplicity="1" />
+          <End Role="INVOICE" Type="Self.INVOICE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYERS">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="INVOICE">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__INVOICE_D__MaHoa__44FF419A">
+          <End Role="INVOICE" Type="Self.INVOICE" Multiplicity="1" />
+          <End Role="INVOICE_DETAILS" Type="Self.INVOICE_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INVOICE">
+              <PropertyRef Name="MaHoaDon" />
+            </Principal>
+            <Dependent Role="INVOICE_DETAILS">
+              <PropertyRef Name="MaHoaDon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__INVOICE_D__MaSan__45F365D3">
+          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="1" />
+          <End Role="INVOICE_DETAILS" Type="Self.INVOICE_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTS">
+              <PropertyRef Name="MaSanPham" />
+            </Principal>
+            <Dependent Role="INVOICE_DETAILS">
+              <PropertyRef Name="MaSanPham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTS__MaBran__47DBAE45">
+          <End Role="BRAND" Type="Self.BRAND" Multiplicity="1" />
+          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BRAND">
+              <PropertyRef Name="MaBrand" />
+            </Principal>
+            <Dependent Role="PRODUCTS">
+              <PropertyRef Name="MaBrand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTS__MaLoai__46E78A0C">
+          <End Role="CATEGORIES" Type="Self.CATEGORIES" Multiplicity="1" />
+          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIES">
+              <PropertyRef Name="MaLoaiHang" />
+            </Principal>
+            <Dependent Role="PRODUCTS">
+              <PropertyRef Name="MaLoaiHang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLyQuanAoModelStoreContainer">
+          <EntitySet Name="ACCOUNT" EntityType="Self.ACCOUNT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BRAND" EntityType="Self.BRAND" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORIES" EntityType="Self.CATEGORIES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLOYERS" EntityType="Self.EMPLOYERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INVOICE" EntityType="Self.INVOICE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INVOICE_DETAILS" EntityType="Self.INVOICE_DETAILS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCTS" EntityType="Self.PRODUCTS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ACCOUNT__MaNV__4316F928" Association="Self.FK__ACCOUNT__MaNV__4316F928">
+            <End Role="EMPLOYERS" EntitySet="EMPLOYERS" />
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__INVOICE__MaNV__440B1D61" Association="Self.FK__INVOICE__MaNV__440B1D61">
+            <End Role="EMPLOYERS" EntitySet="EMPLOYERS" />
+            <End Role="INVOICE" EntitySet="INVOICE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__INVOICE_D__MaHoa__44FF419A" Association="Self.FK__INVOICE_D__MaHoa__44FF419A">
+            <End Role="INVOICE" EntitySet="INVOICE" />
+            <End Role="INVOICE_DETAILS" EntitySet="INVOICE_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__INVOICE_D__MaSan__45F365D3" Association="Self.FK__INVOICE_D__MaSan__45F365D3">
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+            <End Role="INVOICE_DETAILS" EntitySet="INVOICE_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTS__MaBran__47DBAE45" Association="Self.FK__PRODUCTS__MaBran__47DBAE45">
+            <End Role="BRAND" EntitySet="BRAND" />
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTS__MaLoai__46E78A0C" Association="Self.FK__PRODUCTS__MaLoai__46E78A0C">
+            <End Role="CATEGORIES" EntitySet="CATEGORIES" />
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuanLyQuanAoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Account_Type" Type="Boolean" Nullable="false" />
+          <Property Name="MaNV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EMPLOYERS" Relationship="Self.FK__ACCOUNT__MaNV__4316F928" FromRole="ACCOUNT" ToRole="EMPLOYERS" />
+        </EntityType>
+        <EntityType Name="BRAND">
+          <Key>
+            <PropertyRef Name="MaBrand" />
+          </Key>
+          <Property Name="MaBrand" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TenBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PRODUCTS" Relationship="Self.FK__PRODUCTS__MaBran__47DBAE45" FromRole="BRAND" ToRole="PRODUCTS" />
+        </EntityType>
+        <EntityType Name="CATEGORIES">
+          <Key>
+            <PropertyRef Name="MaLoaiHang" />
+          </Key>
+          <Property Name="MaLoaiHang" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TenLoaiHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PRODUCTS" Relationship="Self.FK__PRODUCTS__MaLoai__46E78A0C" FromRole="CATEGORIES" ToRole="PRODUCTS" />
+        </EntityType>
+        <EntityType Name="EMPLOYERS">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TenNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GioiTinh" Type="Boolean" Nullable="false" />
+          <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Anh" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACCOUNT" Relationship="Self.FK__ACCOUNT__MaNV__4316F928" FromRole="EMPLOYERS" ToRole="ACCOUNT" />
+          <NavigationProperty Name="INVOICE" Relationship="Self.FK__INVOICE__MaNV__440B1D61" FromRole="EMPLOYERS" ToRole="INVOICE" />
+        </EntityType>
+        <EntityType Name="INVOICE">
+          <Key>
+            <PropertyRef Name="MaHoaDon" />
+          </Key>
+          <Property Name="MaHoaDon" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NgayLap" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MaNV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EMPLOYERS" Relationship="Self.FK__INVOICE__MaNV__440B1D61" FromRole="INVOICE" ToRole="EMPLOYERS" />
+          <NavigationProperty Name="INVOICE_DETAILS" Relationship="Self.FK__INVOICE_D__MaHoa__44FF419A" FromRole="INVOICE" ToRole="INVOICE_DETAILS" />
+        </EntityType>
+        <EntityType Name="INVOICE_DETAILS">
+          <Key>
+            <PropertyRef Name="MaHoaDon" />
+            <PropertyRef Name="MaSanPham" />
+          </Key>
+          <Property Name="MaHoaDon" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaSanPham" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SoLuong" Type="Int16" Nullable="false" />
+          <Property Name="TriGia" Type="Double" Nullable="false" />
+          <NavigationProperty Name="INVOICE" Relationship="Self.FK__INVOICE_D__MaHoa__44FF419A" FromRole="INVOICE_DETAILS" ToRole="INVOICE" />
+          <NavigationProperty Name="PRODUCTS" Relationship="Self.FK__INVOICE_D__MaSan__45F365D3" FromRole="INVOICE_DETAILS" ToRole="PRODUCTS" />
+        </EntityType>
+        <EntityType Name="PRODUCTS">
+          <Key>
+            <PropertyRef Name="MaSanPham" />
+          </Key>
+          <Property Name="MaSanPham" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TenSanPham" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mau" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Size" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GiaBan" Type="Double" Nullable="false" />
+          <Property Name="SoLuongTon" Type="Int32" Nullable="false" />
+          <Property Name="TinhTrang" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaLoaiHang" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaBrand" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BRAND" Relationship="Self.FK__PRODUCTS__MaBran__47DBAE45" FromRole="PRODUCTS" ToRole="BRAND" />
+          <NavigationProperty Name="CATEGORIES" Relationship="Self.FK__PRODUCTS__MaLoai__46E78A0C" FromRole="PRODUCTS" ToRole="CATEGORIES" />
+          <NavigationProperty Name="INVOICE_DETAILS" Relationship="Self.FK__INVOICE_D__MaSan__45F365D3" FromRole="PRODUCTS" ToRole="INVOICE_DETAILS" />
+        </EntityType>
+        <Association Name="FK__ACCOUNT__MaNV__4316F928">
+          <End Role="EMPLOYERS" Type="Self.EMPLOYERS" Multiplicity="1" />
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYERS">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="ACCOUNT">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTS__MaBran__47DBAE45">
+          <End Role="BRAND" Type="Self.BRAND" Multiplicity="1" />
+          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BRAND">
+              <PropertyRef Name="MaBrand" />
+            </Principal>
+            <Dependent Role="PRODUCTS">
+              <PropertyRef Name="MaBrand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTS__MaLoai__46E78A0C">
+          <End Role="CATEGORIES" Type="Self.CATEGORIES" Multiplicity="1" />
+          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIES">
+              <PropertyRef Name="MaLoaiHang" />
+            </Principal>
+            <Dependent Role="PRODUCTS">
+              <PropertyRef Name="MaLoaiHang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__INVOICE__MaNV__440B1D61">
+          <End Role="EMPLOYERS" Type="Self.EMPLOYERS" Multiplicity="1" />
+          <End Role="INVOICE" Type="Self.INVOICE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYERS">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="INVOICE">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__INVOICE_D__MaHoa__44FF419A">
+          <End Role="INVOICE" Type="Self.INVOICE" Multiplicity="1" />
+          <End Role="INVOICE_DETAILS" Type="Self.INVOICE_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INVOICE">
+              <PropertyRef Name="MaHoaDon" />
+            </Principal>
+            <Dependent Role="INVOICE_DETAILS">
+              <PropertyRef Name="MaHoaDon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__INVOICE_D__MaSan__45F365D3">
+          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="1" />
+          <End Role="INVOICE_DETAILS" Type="Self.INVOICE_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTS">
+              <PropertyRef Name="MaSanPham" />
+            </Principal>
+            <Dependent Role="INVOICE_DETAILS">
+              <PropertyRef Name="MaSanPham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLyQuanAoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ACCOUNT" EntityType="Self.ACCOUNT" />
+          <EntitySet Name="BRAND" EntityType="Self.BRAND" />
+          <EntitySet Name="CATEGORIES" EntityType="Self.CATEGORIES" />
+          <EntitySet Name="EMPLOYERS" EntityType="Self.EMPLOYERS" />
+          <EntitySet Name="INVOICE" EntityType="Self.INVOICE" />
+          <EntitySet Name="INVOICE_DETAILS" EntityType="Self.INVOICE_DETAILS" />
+          <EntitySet Name="PRODUCTS" EntityType="Self.PRODUCTS" />
+          <AssociationSet Name="FK__ACCOUNT__MaNV__4316F928" Association="Self.FK__ACCOUNT__MaNV__4316F928">
+            <End Role="EMPLOYERS" EntitySet="EMPLOYERS" />
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTS__MaBran__47DBAE45" Association="Self.FK__PRODUCTS__MaBran__47DBAE45">
+            <End Role="BRAND" EntitySet="BRAND" />
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTS__MaLoai__46E78A0C" Association="Self.FK__PRODUCTS__MaLoai__46E78A0C">
+            <End Role="CATEGORIES" EntitySet="CATEGORIES" />
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__INVOICE__MaNV__440B1D61" Association="Self.FK__INVOICE__MaNV__440B1D61">
+            <End Role="EMPLOYERS" EntitySet="EMPLOYERS" />
+            <End Role="INVOICE" EntitySet="INVOICE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__INVOICE_D__MaHoa__44FF419A" Association="Self.FK__INVOICE_D__MaHoa__44FF419A">
+            <End Role="INVOICE" EntitySet="INVOICE" />
+            <End Role="INVOICE_DETAILS" EntitySet="INVOICE_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__INVOICE_D__MaSan__45F365D3" Association="Self.FK__INVOICE_D__MaSan__45F365D3">
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+            <End Role="INVOICE_DETAILS" EntitySet="INVOICE_DETAILS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuanLyQuanAoModelStoreContainer" CdmEntityContainer="QuanLyQuanAoEntities">
+          <EntitySetMapping Name="ACCOUNT">
+            <EntityTypeMapping TypeName="QuanLyQuanAoModel.ACCOUNT">
+              <MappingFragment StoreEntitySet="ACCOUNT">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Account_Type" ColumnName="Account_Type" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BRAND">
+            <EntityTypeMapping TypeName="QuanLyQuanAoModel.BRAND">
+              <MappingFragment StoreEntitySet="BRAND">
+                <ScalarProperty Name="MaBrand" ColumnName="MaBrand" />
+                <ScalarProperty Name="TenBrand" ColumnName="TenBrand" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIES">
+            <EntityTypeMapping TypeName="QuanLyQuanAoModel.CATEGORIES">
+              <MappingFragment StoreEntitySet="CATEGORIES">
+                <ScalarProperty Name="MaLoaiHang" ColumnName="MaLoaiHang" />
+                <ScalarProperty Name="TenLoaiHang" ColumnName="TenLoaiHang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYERS">
+            <EntityTypeMapping TypeName="QuanLyQuanAoModel.EMPLOYERS">
+              <MappingFragment StoreEntitySet="EMPLOYERS">
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="TenNV" ColumnName="TenNV" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="Anh" ColumnName="Anh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INVOICE">
+            <EntityTypeMapping TypeName="QuanLyQuanAoModel.INVOICE">
+              <MappingFragment StoreEntitySet="INVOICE">
+                <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
+                <ScalarProperty Name="NgayLap" ColumnName="NgayLap" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INVOICE_DETAILS">
+            <EntityTypeMapping TypeName="QuanLyQuanAoModel.INVOICE_DETAILS">
+              <MappingFragment StoreEntitySet="INVOICE_DETAILS">
+                <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
+                <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="TriGia" ColumnName="TriGia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTS">
+            <EntityTypeMapping TypeName="QuanLyQuanAoModel.PRODUCTS">
+              <MappingFragment StoreEntitySet="PRODUCTS">
+                <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
+                <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
+                <ScalarProperty Name="Mau" ColumnName="Mau" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+                <ScalarProperty Name="SoLuongTon" ColumnName="SoLuongTon" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="MaLoaiHang" ColumnName="MaLoaiHang" />
+                <ScalarProperty Name="MaBrand" ColumnName="MaBrand" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
