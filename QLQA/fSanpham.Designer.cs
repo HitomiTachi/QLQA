@@ -60,9 +60,15 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.btn_Moanh = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNV)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // AccountType
@@ -102,12 +108,12 @@
             this.Number,
             this.AccountType});
             this.dataGridViewNV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewNV.Location = new System.Drawing.Point(0, 168);
+            this.dataGridViewNV.Location = new System.Drawing.Point(0, 268);
             this.dataGridViewNV.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.dataGridViewNV.Name = "dataGridViewNV";
             this.dataGridViewNV.RowHeadersWidth = 82;
             this.dataGridViewNV.RowTemplate.Height = 33;
-            this.dataGridViewNV.Size = new System.Drawing.Size(610, 210);
+            this.dataGridViewNV.Size = new System.Drawing.Size(610, 110);
             this.dataGridViewNV.TabIndex = 12;
             // 
             // Number
@@ -283,6 +289,11 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.Info;
+            this.panel2.Controls.Add(this.btn_Moanh);
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.textBox7);
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.textBox5);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.textBox4);
@@ -304,7 +315,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(610, 168);
+            this.panel2.Size = new System.Drawing.Size(610, 268);
             this.panel2.TabIndex = 10;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
@@ -365,6 +376,54 @@
             this.label7.TabIndex = 20;
             this.label7.Text = "Số lượng tồn : ";
             // 
+            // btn_Moanh
+            // 
+            this.btn_Moanh.Location = new System.Drawing.Point(314, 149);
+            this.btn_Moanh.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Moanh.Name = "btn_Moanh";
+            this.btn_Moanh.Size = new System.Drawing.Size(42, 25);
+            this.btn_Moanh.TabIndex = 31;
+            this.btn_Moanh.Text = "&Chọn";
+            this.btn_Moanh.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(397, 144);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(146, 108);
+            this.pictureBox1.TabIndex = 30;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(314, 134);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(35, 13);
+            this.label10.TabIndex = 27;
+            this.label10.Text = "Ảnh : ";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(41, 136);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(47, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Ghi chú ";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(134, 136);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox7.Multiline = true;
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(146, 72);
+            this.textBox7.TabIndex = 29;
+            // 
             // fSanpham
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,6 +442,7 @@
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -421,5 +481,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btn_Moanh;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox7;
     }
 }
