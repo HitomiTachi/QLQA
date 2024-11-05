@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -48,7 +47,6 @@
             this.radioButtonNV = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.dtpNgaysinh = new System.Windows.Forms.DateTimePicker();
-            this.txbDiaChi = new System.Windows.Forms.TextBox();
             this.maskedTextBox_SDT = new System.Windows.Forms.MaskedTextBox();
             this.textBox_TenNV = new System.Windows.Forms.TextBox();
             this.textBox_MaNV = new System.Windows.Forms.TextBox();
@@ -74,35 +72,37 @@
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label2.Name = "label2";
             // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label3.Name = "label3";
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label5.Name = "label5";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label6.Name = "label6";
             // 
             // label7
             // 
             resources.ApplyResources(this.label7, "label7");
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label7.Name = "label7";
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Info;
             this.panel1.Controls.Add(this.btn_TimKiem);
             this.panel1.Controls.Add(this.btn_Xoa);
             this.panel1.Controls.Add(this.btn_Sua);
@@ -140,29 +140,31 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.SystemColors.Info;
             this.panel2.Controls.Add(this.radioButtonNu);
             this.panel2.Controls.Add(this.radioButtonNam);
             this.panel2.Controls.Add(this.radioButtonQL);
             this.panel2.Controls.Add(this.radioButtonNV);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.dtpNgaysinh);
-            this.panel2.Controls.Add(this.txbDiaChi);
             this.panel2.Controls.Add(this.maskedTextBox_SDT);
             this.panel2.Controls.Add(this.textBox_TenNV);
             this.panel2.Controls.Add(this.textBox_MaNV);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label5);
             resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel2.Name = "panel2";
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // radioButtonNu
             // 
             resources.ApplyResources(this.radioButtonNu, "radioButtonNu");
+            this.radioButtonNu.ForeColor = System.Drawing.Color.MediumBlue;
             this.radioButtonNu.Name = "radioButtonNu";
             this.radioButtonNu.TabStop = true;
             this.radioButtonNu.UseVisualStyleBackColor = true;
@@ -170,6 +172,7 @@
             // radioButtonNam
             // 
             resources.ApplyResources(this.radioButtonNam, "radioButtonNam");
+            this.radioButtonNam.ForeColor = System.Drawing.Color.MediumBlue;
             this.radioButtonNam.Name = "radioButtonNam";
             this.radioButtonNam.TabStop = true;
             this.radioButtonNam.UseVisualStyleBackColor = true;
@@ -177,32 +180,33 @@
             // radioButtonQL
             // 
             resources.ApplyResources(this.radioButtonQL, "radioButtonQL");
+            this.radioButtonQL.ForeColor = System.Drawing.Color.MediumBlue;
             this.radioButtonQL.Name = "radioButtonQL";
             this.radioButtonQL.TabStop = true;
             this.radioButtonQL.UseVisualStyleBackColor = true;
+            this.radioButtonQL.CheckedChanged += new System.EventHandler(this.radioButtonQL_CheckedChanged);
             // 
             // radioButtonNV
             // 
             resources.ApplyResources(this.radioButtonNV, "radioButtonNV");
+            this.radioButtonNV.ForeColor = System.Drawing.Color.MediumBlue;
             this.radioButtonNV.Name = "radioButtonNV";
             this.radioButtonNV.TabStop = true;
             this.radioButtonNV.UseVisualStyleBackColor = true;
+            this.radioButtonNV.CheckedChanged += new System.EventHandler(this.radioButtonNV_CheckedChanged);
             // 
             // label8
             // 
             resources.ApplyResources(this.label8, "label8");
+            this.label8.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label8.Name = "label8";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // dtpNgaysinh
             // 
             this.dtpNgaysinh.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             resources.ApplyResources(this.dtpNgaysinh, "dtpNgaysinh");
             this.dtpNgaysinh.Name = "dtpNgaysinh";
-            // 
-            // txbDiaChi
-            // 
-            resources.ApplyResources(this.txbDiaChi, "txbDiaChi");
-            this.txbDiaChi.Name = "txbDiaChi";
             // 
             // maskedTextBox_SDT
             // 
@@ -290,7 +294,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -301,7 +304,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.MaskedTextBox maskedTextBox_SDT;
         private System.Windows.Forms.DataGridView dataGridViewNV;
-        private System.Windows.Forms.TextBox txbDiaChi;
         private System.Windows.Forms.Button btn_Them;
         private System.Windows.Forms.DateTimePicker dtpNgaysinh;
         private System.Windows.Forms.Button btn_Xoa;

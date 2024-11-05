@@ -151,7 +151,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -181,7 +181,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -211,43 +211,13 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>314, 46</value>
-  </data>
-  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 15</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Địa chỉ : </value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>40, 127</value>
+    <value>40, 96</value>
   </data>
   <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -271,13 +241,13 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>14</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>314, 72</value>
+    <value>314, 48</value>
   </data>
   <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -301,13 +271,13 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>13</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>314, 101</value>
+    <value>314, 72</value>
   </data>
   <data name="label7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -331,7 +301,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>11</value>
   </data>
   <data name="btn_TimKiem.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -487,7 +457,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonNu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 123</value>
+    <value>239, 96</value>
   </data>
   <data name="radioButtonNu.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 19</value>
@@ -517,7 +487,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonNam.Location" type="System.Drawing.Point, System.Drawing">
-    <value>134, 127</value>
+    <value>145, 96</value>
   </data>
   <data name="radioButtonNam.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 19</value>
@@ -544,7 +514,7 @@
     <value>True</value>
   </data>
   <data name="radioButtonQL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 102</value>
+    <value>397, 96</value>
   </data>
   <data name="radioButtonQL.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 19</value>
@@ -571,7 +541,7 @@
     <value>True</value>
   </data>
   <data name="radioButtonNV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>134, 102</value>
+    <value>397, 122</value>
   </data>
   <data name="radioButtonNV.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 19</value>
@@ -604,7 +574,7 @@
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>40, 102</value>
+    <value>314, 96</value>
   </data>
   <data name="label8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -631,7 +601,7 @@
     <value>4</value>
   </data>
   <data name="dtpNgaysinh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>397, 99</value>
+    <value>397, 70</value>
   </data>
   <data name="dtpNgaysinh.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 1, 2, 1</value>
@@ -654,32 +624,8 @@
   <data name="&gt;&gt;dtpNgaysinh.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="txbDiaChi.Location" type="System.Drawing.Point, System.Drawing">
-    <value>397, 45</value>
-  </data>
-  <data name="txbDiaChi.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 1, 2, 1</value>
-  </data>
-  <data name="txbDiaChi.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 21</value>
-  </data>
-  <data name="txbDiaChi.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;txbDiaChi.Name" xml:space="preserve">
-    <value>txbDiaChi</value>
-  </data>
-  <data name="&gt;&gt;txbDiaChi.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txbDiaChi.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;txbDiaChi.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
   <data name="maskedTextBox_SDT.Location" type="System.Drawing.Point, System.Drawing">
-    <value>397, 70</value>
+    <value>397, 44</value>
   </data>
   <data name="maskedTextBox_SDT.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 1, 2, 1</value>
@@ -703,7 +649,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;maskedTextBox_SDT.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="textBox_TenNV.Location" type="System.Drawing.Point, System.Drawing">
     <value>134, 70</value>
@@ -727,7 +673,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;textBox_TenNV.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="textBox_MaNV.Location" type="System.Drawing.Point, System.Drawing">
     <value>134, 44</value>
@@ -751,7 +697,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;textBox_MaNV.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>

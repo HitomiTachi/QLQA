@@ -433,5 +433,29 @@ namespace QLQA
             }
         }
 
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButtonNV_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButtonQL_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
