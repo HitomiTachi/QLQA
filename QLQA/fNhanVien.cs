@@ -341,97 +341,10 @@ namespace QLQA
 
         private void btn_TimKiem_Click(object sender, EventArgs e)
         {
-            string maNVKeyword = textBox_MaNV.Text.Trim();
-            string tenNVKeyword = textBox_TenNV.Text.Trim();
-
-            // Kiểm tra nếu cả hai trường đều trống
-            if (string.IsNullOrWhiteSpace(maNVKeyword) && string.IsNullOrWhiteSpace(tenNVKeyword))
-            {
-                MessageBox.Show("Vui lòng nhập mã nhân viên hoặc tên nhân viên để tìm kiếm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            // Thực hiện tìm kiếm
-            SearchEmployee(maNVKeyword, tenNVKeyword);
+            fTimkiemNV formTimKiem = new fTimkiemNV();
+            formTimKiem.ShowDialog(); // Mở form tìm kiếm dưới dạng hộp thoại
         }
-        private void SearchEmployee(string maNVKeyword, string tenNVKeyword)
-        {
-            using (var db = new QuanLyQuanAoEntities())
-            {
-                // Tìm kiếm nhân viên theo mã nhân viên và/hoặc tên nhân viên
-                var filteredEmployees = db.EMPLOYERS.AsQueryable();
-
-                if (!string.IsNullOrWhiteSpace(maNVKeyword))
-                {
-                    filteredEmployees = filteredEmployees.Where(emp => emp.MaNV.Contains(maNVKeyword));
-                }
-
-                if (!string.IsNullOrWhiteSpace(tenNVKeyword))
-                {
-                    filteredEmployees = filteredEmployees.Where(emp => emp.TenNV.Contains(tenNVKeyword));
-                }
-
-                var results = filteredEmployees.ToList();
-
-                if (results.Count > 0)
-                {
-                    // Hiển thị thông tin của nhân viên đầu tiên tìm thấy
-                    ShowEmployeeInfo(results.First());
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy nhân viên nào phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-        }
-
-        private void ShowEmployeeInfo(EMPLOYERS employee)
-        {
-            if (employee == null) return;
-
-            StringBuilder info = new StringBuilder();
-            info.AppendLine($"Mã NV: {employee.MaNV}");
-            info.AppendLine($"Tên NV: {employee.TenNV}");
-            info.AppendLine($"Giới Tính: {(employee.GioiTinh ? "Nam" : "Nữ")}");
-            info.AppendLine($"Ngày Sinh: {employee.NgaySinh.ToString("dd/MM/yyyy")}");
-            info.AppendLine($"Số Điện Thoại: {employee.SoDienThoai}");
-
-            // Truy cập tài khoản từ ACCOUNT dựa vào MaNV
-            using (var db = new QuanLyQuanAoEntities())
-            {
-                var account = db.ACCOUNT.FirstOrDefault(acc => acc.MaNV == employee.MaNV);
-                string accountType = account?.Account_Type == true ? "Quản lý" : "Nhân viên"; // Kiểm tra kiểu tài khoản
-                info.AppendLine($"Kiểu Tài Khoản: {accountType}");
-            }
-
-            MessageBox.Show(info.ToString(), "Thông Tin Nhân Viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-        private void SearchEmployee(string keyword)
-        {
-            if (string.IsNullOrWhiteSpace(keyword))
-            {
-                LoadEmployeeDataFromDatabase(); // Nếu không có từ khóa, tải lại dữ liệu
-                return;
-            }
-
-            using (var db = new QuanLyQuanAoEntities())
-            {
-                // Tìm kiếm nhân viên theo mã nhân viên hoặc tên nhân viên
-                var filteredEmployees = db.EMPLOYERS
-                    .Where(emp => emp.MaNV.Contains(keyword) || emp.TenNV.Contains(keyword))
-                    .ToList();
-
-                if (filteredEmployees.Count > 0)
-                {
-                    // Hiển thị thông tin của nhân viên đầu tiên tìm thấy
-                    ShowEmployeeInfo(filteredEmployees.First());
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy nhân viên nào phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-        }
+        
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {

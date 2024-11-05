@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -45,7 +44,6 @@
             this.radioButtonNam = new System.Windows.Forms.RadioButton();
             this.radioButtonQL = new System.Windows.Forms.RadioButton();
             this.radioButtonNV = new System.Windows.Forms.RadioButton();
-            this.label8 = new System.Windows.Forms.Label();
             this.dtpNgaysinh = new System.Windows.Forms.DateTimePicker();
             this.maskedTextBox_SDT = new System.Windows.Forms.MaskedTextBox();
             this.textBox_TenNV = new System.Windows.Forms.TextBox();
@@ -58,9 +56,17 @@
             this.DateBirth = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AccountType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBoxRole = new System.Windows.Forms.GroupBox();
+            this.groupBoxSex = new System.Windows.Forms.GroupBox();
+            this.btn_Moanh = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNV)).BeginInit();
+            this.groupBoxRole.SuspendLayout();
+            this.groupBoxSex.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -80,13 +86,6 @@
             resources.ApplyResources(this.label3, "label3");
             this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label3.Name = "label3";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Name = "label5";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
@@ -141,11 +140,11 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.Info;
-            this.panel2.Controls.Add(this.radioButtonNu);
-            this.panel2.Controls.Add(this.radioButtonNam);
-            this.panel2.Controls.Add(this.radioButtonQL);
-            this.panel2.Controls.Add(this.radioButtonNV);
-            this.panel2.Controls.Add(this.label8);
+            this.panel2.Controls.Add(this.btn_Moanh);
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Controls.Add(this.groupBoxSex);
+            this.panel2.Controls.Add(this.groupBoxRole);
             this.panel2.Controls.Add(this.dtpNgaysinh);
             this.panel2.Controls.Add(this.maskedTextBox_SDT);
             this.panel2.Controls.Add(this.textBox_TenNV);
@@ -155,7 +154,6 @@
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.label5);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel2.Name = "panel2";
@@ -194,13 +192,6 @@
             this.radioButtonNV.TabStop = true;
             this.radioButtonNV.UseVisualStyleBackColor = true;
             this.radioButtonNV.CheckedChanged += new System.EventHandler(this.radioButtonNV_CheckedChanged);
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label8.Name = "label8";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // dtpNgaysinh
             // 
@@ -270,6 +261,40 @@
             resources.ApplyResources(this.AccountType, "AccountType");
             this.AccountType.Name = "AccountType";
             // 
+            // groupBoxRole
+            // 
+            this.groupBoxRole.Controls.Add(this.radioButtonQL);
+            this.groupBoxRole.Controls.Add(this.radioButtonNV);
+            resources.ApplyResources(this.groupBoxRole, "groupBoxRole");
+            this.groupBoxRole.Name = "groupBoxRole";
+            this.groupBoxRole.TabStop = false;
+            // 
+            // groupBoxSex
+            // 
+            this.groupBoxSex.Controls.Add(this.radioButtonNu);
+            this.groupBoxSex.Controls.Add(this.radioButtonNam);
+            resources.ApplyResources(this.groupBoxSex, "groupBoxSex");
+            this.groupBoxSex.Name = "groupBoxSex";
+            this.groupBoxSex.TabStop = false;
+            // 
+            // btn_Moanh
+            // 
+            resources.ApplyResources(this.btn_Moanh, "btn_Moanh");
+            this.btn_Moanh.Name = "btn_Moanh";
+            this.btn_Moanh.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
             // fNhanVien
             // 
             resources.ApplyResources(this, "$this");
@@ -285,6 +310,11 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNV)).EndInit();
+            this.groupBoxRole.ResumeLayout(false);
+            this.groupBoxRole.PerformLayout();
+            this.groupBoxSex.ResumeLayout(false);
+            this.groupBoxSex.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -294,7 +324,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel1;
@@ -310,7 +339,6 @@
         private System.Windows.Forms.Button btn_Sua;
         private System.Windows.Forms.RadioButton radioButtonQL;
         private System.Windows.Forms.RadioButton radioButtonNV;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btn_TimKiem;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaNV;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenNV;
@@ -320,5 +348,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AccountType;
         private System.Windows.Forms.RadioButton radioButtonNu;
         private System.Windows.Forms.RadioButton radioButtonNam;
+        private System.Windows.Forms.GroupBox groupBoxSex;
+        private System.Windows.Forms.GroupBox groupBoxRole;
+        private System.Windows.Forms.Button btn_Moanh;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label10;
     }
 }

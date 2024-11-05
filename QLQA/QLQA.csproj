@@ -92,6 +92,24 @@
     <Compile Include="fTaikhoan.Designer.cs">
       <DependentUpon>fTaikhoan.cs</DependentUpon>
     </Compile>
+    <Compile Include="fTimkiemHD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fTimkiemHD.Designer.cs">
+      <DependentUpon>fTimkiemHD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fTimkiemNV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fTimkiemNV.Designer.cs">
+      <DependentUpon>fTimkiemNV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fTimkiemSP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fTimkiemSP.Designer.cs">
+      <DependentUpon>fTimkiemSP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fHoadon.resx">
@@ -111,6 +129,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fTaikhoan.resx">
       <DependentUpon>fTaikhoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fTimkiemHD.resx">
+      <DependentUpon>fTimkiemHD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fTimkiemNV.resx">
+      <DependentUpon>fTimkiemNV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fTimkiemSP.resx">
+      <DependentUpon>fTimkiemSP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
