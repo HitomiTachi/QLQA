@@ -92,6 +92,12 @@
     <Compile Include="fTaikhoan.Designer.cs">
       <DependentUpon>fTaikhoan.cs</DependentUpon>
     </Compile>
+    <Compile Include="fTaikhoanNV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fTaikhoanNV.Designer.cs">
+      <DependentUpon>fTaikhoanNV.cs</DependentUpon>
+    </Compile>
     <Compile Include="fTimkiemHD.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fTaikhoan.resx">
       <DependentUpon>fTaikhoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fTaikhoanNV.resx">
+      <DependentUpon>fTaikhoanNV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fTimkiemHD.resx">
       <DependentUpon>fTimkiemHD.cs</DependentUpon>

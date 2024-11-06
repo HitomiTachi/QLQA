@@ -160,7 +160,7 @@
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel2.Name = "panel2";
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+
             // 
             // btn_Anh
             // 
@@ -220,7 +220,7 @@
             this.radioButtonQL.Name = "radioButtonQL";
             this.radioButtonQL.TabStop = true;
             this.radioButtonQL.UseVisualStyleBackColor = true;
-            this.radioButtonQL.CheckedChanged += new System.EventHandler(this.radioButtonQL_CheckedChanged);
+
             // 
             // radioButtonNV
             // 
@@ -229,7 +229,7 @@
             this.radioButtonNV.Name = "radioButtonNV";
             this.radioButtonNV.TabStop = true;
             this.radioButtonNV.UseVisualStyleBackColor = true;
-            this.radioButtonNV.CheckedChanged += new System.EventHandler(this.radioButtonNV_CheckedChanged);
+
             // 
             // dtpNgaysinh
             // 

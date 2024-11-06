@@ -29,33 +29,31 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.textBoxTenNV = new System.Windows.Forms.TextBox();
+            this.textBoxUsername = new System.Windows.Forms.TextBox();
+            this.textBoxMaNV = new System.Windows.Forms.TextBox();
+            this.listViewTK = new System.Windows.Forms.ListView();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_Sua = new System.Windows.Forms.Button();
+            this.btn_Xoa = new System.Windows.Forms.Button();
+            this.btn_Them = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.SystemColors.Info;
-            this.groupBox2.Controls.Add(this.textBox5);
-            this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Controls.Add(this.textBox3);
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.listView1);
+            this.groupBox2.Controls.Add(this.textBoxPassword);
+            this.groupBox2.Controls.Add(this.textBoxTenNV);
+            this.groupBox2.Controls.Add(this.textBoxUsername);
+            this.groupBox2.Controls.Add(this.textBoxMaNV);
+            this.groupBox2.Controls.Add(this.listViewTK);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
@@ -70,55 +68,48 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Thông tin tài khoản";
             // 
-            // textBox5
+            // textBoxPassword
             // 
-            this.textBox5.Location = new System.Drawing.Point(348, 67);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(134, 20);
-            this.textBox5.TabIndex = 10;
+            this.textBoxPassword.Location = new System.Drawing.Point(348, 36);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.Size = new System.Drawing.Size(134, 20);
+            this.textBoxPassword.TabIndex = 9;
             // 
-            // textBox4
+            // textBoxTenNV
             // 
-            this.textBox4.Location = new System.Drawing.Point(348, 36);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(134, 20);
-            this.textBox4.TabIndex = 9;
+            this.textBoxTenNV.Location = new System.Drawing.Point(114, 100);
+            this.textBoxTenNV.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTenNV.Name = "textBoxTenNV";
+            this.textBoxTenNV.Size = new System.Drawing.Size(134, 20);
+            this.textBoxTenNV.TabIndex = 8;
             // 
-            // textBox3
+            // textBoxUsername
             // 
-            this.textBox3.Location = new System.Drawing.Point(114, 100);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(134, 20);
-            this.textBox3.TabIndex = 8;
+            this.textBoxUsername.Location = new System.Drawing.Point(114, 67);
+            this.textBoxUsername.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxUsername.Name = "textBoxUsername";
+            this.textBoxUsername.Size = new System.Drawing.Size(134, 20);
+            this.textBoxUsername.TabIndex = 7;
             // 
-            // textBox2
+            // textBoxMaNV
             // 
-            this.textBox2.Location = new System.Drawing.Point(114, 67);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(134, 20);
-            this.textBox2.TabIndex = 7;
+            this.textBoxMaNV.Location = new System.Drawing.Point(114, 36);
+            this.textBoxMaNV.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxMaNV.Name = "textBoxMaNV";
+            this.textBoxMaNV.Size = new System.Drawing.Size(134, 20);
+            this.textBoxMaNV.TabIndex = 6;
             // 
-            // textBox1
+            // listViewTK
             // 
-            this.textBox1.Location = new System.Drawing.Point(114, 36);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(134, 20);
-            this.textBox1.TabIndex = 6;
-            // 
-            // listView1
-            // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(16, 141);
-            this.listView1.Margin = new System.Windows.Forms.Padding(2);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(528, 113);
-            this.listView1.TabIndex = 5;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listViewTK.HideSelection = false;
+            this.listViewTK.Location = new System.Drawing.Point(16, 141);
+            this.listViewTK.Margin = new System.Windows.Forms.Padding(2);
+            this.listViewTK.Name = "listViewTK";
+            this.listViewTK.Size = new System.Drawing.Size(528, 113);
+            this.listViewTK.TabIndex = 5;
+            this.listViewTK.UseCompatibleStateImageBehavior = false;
+            this.listViewTK.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -126,9 +117,9 @@
             this.label6.Location = new System.Drawing.Point(284, 70);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
+            this.label6.Size = new System.Drawing.Size(10, 13);
             this.label6.TabIndex = 4;
-            this.label6.Text = "Nhập lại ";
+            this.label6.Text = " ";
             // 
             // label5
             // 
@@ -182,40 +173,43 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "QUẢN LÝ TÀI KHOẢN ";
             // 
-            // button3
+            // btn_Sua
             // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.Location = new System.Drawing.Point(400, 356);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(92, 34);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Đóng";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btn_Sua.BackColor = System.Drawing.Color.Transparent;
+            this.btn_Sua.Location = new System.Drawing.Point(400, 356);
+            this.btn_Sua.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Sua.Name = "btn_Sua";
+            this.btn_Sua.Size = new System.Drawing.Size(92, 34);
+            this.btn_Sua.TabIndex = 10;
+            this.btn_Sua.Text = "Sửa";
+            this.btn_Sua.UseVisualStyleBackColor = false;
+            this.btn_Sua.Click += new System.EventHandler(this.btn_Sua_Click);
             // 
-            // button2
+            // btn_Xoa
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(240, 356);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(92, 34);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Xóa ";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btn_Xoa.BackColor = System.Drawing.Color.Transparent;
+            this.btn_Xoa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Xoa.Location = new System.Drawing.Point(240, 356);
+            this.btn_Xoa.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Xoa.Name = "btn_Xoa";
+            this.btn_Xoa.Size = new System.Drawing.Size(92, 34);
+            this.btn_Xoa.TabIndex = 9;
+            this.btn_Xoa.Text = "Xóa ";
+            this.btn_Xoa.UseVisualStyleBackColor = false;
+            this.btn_Xoa.Click += new System.EventHandler(this.btn_Xoa_Click);
             // 
-            // button1
+            // btn_Them
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(94, 356);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 34);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Thêm ";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btn_Them.BackColor = System.Drawing.Color.Transparent;
+            this.btn_Them.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Them.Location = new System.Drawing.Point(94, 356);
+            this.btn_Them.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Them.Name = "btn_Them";
+            this.btn_Them.Size = new System.Drawing.Size(85, 34);
+            this.btn_Them.TabIndex = 8;
+            this.btn_Them.Text = "Thêm ";
+            this.btn_Them.UseVisualStyleBackColor = false;
+            this.btn_Them.Click += new System.EventHandler(this.btn_Them_Click);
             // 
             // fTaikhoan
             // 
@@ -225,11 +219,11 @@
             this.ClientSize = new System.Drawing.Size(610, 433);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_Sua);
+            this.Controls.Add(this.btn_Xoa);
+            this.Controls.Add(this.btn_Them);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fTaikhoan";
             this.Text = "fTaikhoan";
             this.groupBox2.ResumeLayout(false);
@@ -242,20 +236,19 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.TextBox textBoxTenNV;
+        private System.Windows.Forms.TextBox textBoxUsername;
+        private System.Windows.Forms.TextBox textBoxMaNV;
+        private System.Windows.Forms.ListView listViewTK;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_Sua;
+        private System.Windows.Forms.Button btn_Xoa;
+        private System.Windows.Forms.Button btn_Them;
     }
 }

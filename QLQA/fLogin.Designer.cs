@@ -147,7 +147,7 @@
             this.textBoxPass.Size = new System.Drawing.Size(218, 20);
             this.textBoxPass.TabIndex = 2;
             this.textBoxPass.UseSystemPasswordChar = true;
-            this.textBoxPass.TextChanged += new System.EventHandler(this.textBox2_TextChanged_2);
+
             this.textBoxPass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxPass_KeyDown);
             // 
             // pictureBox2
@@ -194,7 +194,6 @@
             this.textBoxUser.Name = "textBoxUser";
             this.textBoxUser.Size = new System.Drawing.Size(218, 20);
             this.textBoxUser.TabIndex = 1;
-            this.textBoxUser.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBoxUser.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUser_KeyDown);
             // 
             // btnClose
