@@ -40,8 +40,13 @@
             this.btn_Sua = new System.Windows.Forms.Button();
             this.btn_Them = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_Anh = new System.Windows.Forms.Button();
+            this.pictureBoxAnh = new System.Windows.Forms.PictureBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.groupBoxSex = new System.Windows.Forms.GroupBox();
             this.radioButtonNu = new System.Windows.Forms.RadioButton();
             this.radioButtonNam = new System.Windows.Forms.RadioButton();
+            this.groupBoxRole = new System.Windows.Forms.GroupBox();
             this.radioButtonQL = new System.Windows.Forms.RadioButton();
             this.radioButtonNV = new System.Windows.Forms.RadioButton();
             this.dtpNgaysinh = new System.Windows.Forms.DateTimePicker();
@@ -50,23 +55,20 @@
             this.textBox_MaNV = new System.Windows.Forms.TextBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dataGridViewNV = new System.Windows.Forms.DataGridView();
+            this.btn_Lammoi = new System.Windows.Forms.Button();
             this.MaNV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TenNV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateBirth = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AccountType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBoxRole = new System.Windows.Forms.GroupBox();
-            this.groupBoxSex = new System.Windows.Forms.GroupBox();
-            this.btn_Moanh = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.Pic = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNV)).BeginInit();
-            this.groupBoxRole.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAnh)).BeginInit();
             this.groupBoxSex.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBoxRole.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNV)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -102,6 +104,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Info;
+            this.panel1.Controls.Add(this.btn_Lammoi);
             this.panel1.Controls.Add(this.btn_TimKiem);
             this.panel1.Controls.Add(this.btn_Xoa);
             this.panel1.Controls.Add(this.btn_Sua);
@@ -140,8 +143,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.Info;
-            this.panel2.Controls.Add(this.btn_Moanh);
-            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.btn_Anh);
+            this.panel2.Controls.Add(this.pictureBoxAnh);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.groupBoxSex);
             this.panel2.Controls.Add(this.groupBoxRole);
@@ -159,6 +162,33 @@
             this.panel2.Name = "panel2";
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
+            // btn_Anh
+            // 
+            resources.ApplyResources(this.btn_Anh, "btn_Anh");
+            this.btn_Anh.Name = "btn_Anh";
+            this.btn_Anh.UseVisualStyleBackColor = true;
+            this.btn_Anh.Click += new System.EventHandler(this.btn_Anh_Click);
+            // 
+            // pictureBoxAnh
+            // 
+            this.pictureBoxAnh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.pictureBoxAnh, "pictureBoxAnh");
+            this.pictureBoxAnh.Name = "pictureBoxAnh";
+            this.pictureBoxAnh.TabStop = false;
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // groupBoxSex
+            // 
+            this.groupBoxSex.Controls.Add(this.radioButtonNu);
+            this.groupBoxSex.Controls.Add(this.radioButtonNam);
+            resources.ApplyResources(this.groupBoxSex, "groupBoxSex");
+            this.groupBoxSex.Name = "groupBoxSex";
+            this.groupBoxSex.TabStop = false;
+            // 
             // radioButtonNu
             // 
             resources.ApplyResources(this.radioButtonNu, "radioButtonNu");
@@ -174,6 +204,14 @@
             this.radioButtonNam.Name = "radioButtonNam";
             this.radioButtonNam.TabStop = true;
             this.radioButtonNam.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxRole
+            // 
+            this.groupBoxRole.Controls.Add(this.radioButtonQL);
+            this.groupBoxRole.Controls.Add(this.radioButtonNV);
+            resources.ApplyResources(this.groupBoxRole, "groupBoxRole");
+            this.groupBoxRole.Name = "groupBoxRole";
+            this.groupBoxRole.TabStop = false;
             // 
             // radioButtonQL
             // 
@@ -225,11 +263,19 @@
             this.Sex,
             this.DateBirth,
             this.Number,
-            this.AccountType});
+            this.AccountType,
+            this.Pic});
             resources.ApplyResources(this.dataGridViewNV, "dataGridViewNV");
             this.dataGridViewNV.Name = "dataGridViewNV";
             this.dataGridViewNV.RowTemplate.Height = 33;
             this.dataGridViewNV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewNV_CellClick);
+            // 
+            // btn_Lammoi
+            // 
+            resources.ApplyResources(this.btn_Lammoi, "btn_Lammoi");
+            this.btn_Lammoi.Name = "btn_Lammoi";
+            this.btn_Lammoi.UseVisualStyleBackColor = true;
+            this.btn_Lammoi.Click += new System.EventHandler(this.btn_Lammoi_Click);
             // 
             // MaNV
             // 
@@ -261,39 +307,10 @@
             resources.ApplyResources(this.AccountType, "AccountType");
             this.AccountType.Name = "AccountType";
             // 
-            // groupBoxRole
+            // Pic
             // 
-            this.groupBoxRole.Controls.Add(this.radioButtonQL);
-            this.groupBoxRole.Controls.Add(this.radioButtonNV);
-            resources.ApplyResources(this.groupBoxRole, "groupBoxRole");
-            this.groupBoxRole.Name = "groupBoxRole";
-            this.groupBoxRole.TabStop = false;
-            // 
-            // groupBoxSex
-            // 
-            this.groupBoxSex.Controls.Add(this.radioButtonNu);
-            this.groupBoxSex.Controls.Add(this.radioButtonNam);
-            resources.ApplyResources(this.groupBoxSex, "groupBoxSex");
-            this.groupBoxSex.Name = "groupBoxSex";
-            this.groupBoxSex.TabStop = false;
-            // 
-            // btn_Moanh
-            // 
-            resources.ApplyResources(this.btn_Moanh, "btn_Moanh");
-            this.btn_Moanh.Name = "btn_Moanh";
-            this.btn_Moanh.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
+            resources.ApplyResources(this.Pic, "Pic");
+            this.Pic.Name = "Pic";
             // 
             // fNhanVien
             // 
@@ -307,14 +324,15 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "fNhanVien";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNV)).EndInit();
-            this.groupBoxRole.ResumeLayout(false);
-            this.groupBoxRole.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAnh)).EndInit();
             this.groupBoxSex.ResumeLayout(false);
             this.groupBoxSex.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBoxRole.ResumeLayout(false);
+            this.groupBoxRole.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNV)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -340,18 +358,20 @@
         private System.Windows.Forms.RadioButton radioButtonQL;
         private System.Windows.Forms.RadioButton radioButtonNV;
         private System.Windows.Forms.Button btn_TimKiem;
+        private System.Windows.Forms.RadioButton radioButtonNu;
+        private System.Windows.Forms.RadioButton radioButtonNam;
+        private System.Windows.Forms.GroupBox groupBoxSex;
+        private System.Windows.Forms.GroupBox groupBoxRole;
+        private System.Windows.Forms.Button btn_Anh;
+        private System.Windows.Forms.PictureBox pictureBoxAnh;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btn_Lammoi;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaNV;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenNV;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sex;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateBirth;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn AccountType;
-        private System.Windows.Forms.RadioButton radioButtonNu;
-        private System.Windows.Forms.RadioButton radioButtonNam;
-        private System.Windows.Forms.GroupBox groupBoxSex;
-        private System.Windows.Forms.GroupBox groupBoxRole;
-        private System.Windows.Forms.Button btn_Moanh;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Pic;
     }
 }

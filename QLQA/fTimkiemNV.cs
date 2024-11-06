@@ -17,12 +17,22 @@ namespace QLQA
 
         private void InitializeDataGridView()
         {
+            // Khởi tạo cột cho DataGridView nhưng không thêm dữ liệu sẵn có
             dataGridViewNV.Columns.Add("MaNV", "Mã NV");
             dataGridViewNV.Columns.Add("TenNV", "Tên NV");
             dataGridViewNV.Columns.Add("GioiTinh", "Giới Tính");
             dataGridViewNV.Columns.Add("NgaySinh", "Ngày Sinh");
             dataGridViewNV.Columns.Add("SoDienThoai", "Số Điện Thoại");
             dataGridViewNV.Columns.Add("AccountType", "Kiểu Tài Khoản");
+
+            // Thêm sự kiện để theo dõi khi có thay đổi giá trị trong DataGridView
+            dataGridViewNV.CellValueChanged += dataGridViewNV_CellValueChanged;
+            dataGridViewNV.RowPrePaint += dgv_RowPrePaint; // Thêm sự kiện để đánh số thứ tự
+        }
+
+        private void dgv_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            dataGridViewNV.Rows[e.RowIndex].Cells["STT"].Value = e.RowIndex + 1; // Đánh số thứ tự
         }
 
         private void SearchEmployee(string maNVKeyword)
@@ -53,7 +63,8 @@ namespace QLQA
 
         private void BindGrid(List<EMPLOYERS> employees)
         {
-            dataGridViewNV.Rows.Clear();
+            dataGridViewNV.Rows.Clear(); // Xóa các dòng cũ
+
             using (var db = new QuanLyQuanAoEntities())
             {
                 foreach (var item in employees)
@@ -71,22 +82,67 @@ namespace QLQA
                 }
             }
         }
+        private void dataGridViewNV_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // Kiểm tra nếu có thay đổi trong dòng dữ liệu
+            if (e.RowIndex >= 0)
+            {
+                var row = dataGridViewNV.Rows[e.RowIndex];
+                string maNV = row.Cells["MaNV"].Value.ToString();
+                string tenNV = row.Cells["TenNV"].Value.ToString();
+                bool gioiTinh = row.Cells["GioiTinh"].Value.ToString() == "Nam";
+                DateTime ngaySinh;
+                bool isDateValid = DateTime.TryParse(row.Cells["NgaySinh"].Value.ToString(), out ngaySinh);
+                string soDienThoai = row.Cells["SoDienThoai"].Value.ToString();
+
+                if (!isDateValid)
+                {
+                    MessageBox.Show("Ngày sinh không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Tạo đối tượng nhân viên từ thông tin trong dòng dữ liệu
+                var updatedEmployee = new EMPLOYERS
+                {
+                    MaNV = maNV,
+                    TenNV = tenNV,
+                    GioiTinh = gioiTinh,
+                    NgaySinh = ngaySinh,
+                    SoDienThoai = soDienThoai
+                };
+
+                // Cập nhật thông tin vào cơ sở dữ liệu
+                UpdateEmployee(updatedEmployee);
+            }
+        }
 
         private void dataGridViewNV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+           
+        }
+        private void UpdateEmployee(EMPLOYERS updatedEmployee)
+        {
+            using (var db = new QuanLyQuanAoEntities())
             {
-                DataGridViewRow row = dataGridViewNV.Rows[e.RowIndex];
+                // Tìm nhân viên cần cập nhật trong cơ sở dữ liệu
+                var existingEmployee = db.EMPLOYERS.FirstOrDefault(emp => emp.MaNV == updatedEmployee.MaNV);
 
-                StringBuilder info = new StringBuilder();
-                info.AppendLine($"Mã NV: {row.Cells["MaNV"].Value}");
-                info.AppendLine($"Tên NV: {row.Cells["TenNV"].Value}");
-                info.AppendLine($"Giới Tính: {row.Cells["GioiTinh"].Value}");
-                info.AppendLine($"Ngày Sinh: {row.Cells["NgaySinh"].Value}");
-                info.AppendLine($"Số Điện Thoại: {row.Cells["SoDienThoai"].Value}");
-                info.AppendLine($"Kiểu Tài Khoản: {row.Cells["AccountType"].Value}");
+                if (existingEmployee != null)
+                {
+                    // Cập nhật thông tin nhân viên
+                    existingEmployee.TenNV = updatedEmployee.TenNV;
+                    existingEmployee.GioiTinh = updatedEmployee.GioiTinh;
+                    existingEmployee.NgaySinh = updatedEmployee.NgaySinh;
+                    existingEmployee.SoDienThoai = updatedEmployee.SoDienThoai;
 
-                MessageBox.Show(info.ToString(), "Thông Tin Chi Tiết Nhân Viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Lưu thay đổi vào cơ sở dữ liệu
+                    db.SaveChanges();
+                    MessageBox.Show("Cập nhật thông tin nhân viên thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy nhân viên để cập nhật.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -94,7 +150,6 @@ namespace QLQA
         {
             string maNVKeyword = textBox_NV.Text.Trim();
 
-            // Kiểm tra nếu trường MaNV trống
             if (string.IsNullOrWhiteSpace(maNVKeyword))
             {
                 MessageBox.Show("Vui lòng nhập mã nhân viên để tìm kiếm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

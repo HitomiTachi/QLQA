@@ -170,6 +170,8 @@
             // 
             // dataGridViewNV
             // 
+            this.dataGridViewNV.AllowUserToAddRows = false;
+            this.dataGridViewNV.AllowUserToDeleteRows = false;
             this.dataGridViewNV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewNV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewNV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {

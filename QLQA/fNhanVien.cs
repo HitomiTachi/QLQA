@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace QLQA
         private bool Account_Type; // Biến thành viên để lưu loại tài khoản
         private List<EMPLOYERS> listNhanVien;
 
+
         public fNhanVien(bool isManager)  // Thay đổi tham số để nhận kiểu bool
         {
             InitializeComponent();
@@ -25,6 +27,7 @@ namespace QLQA
             listNhanVien = new List<EMPLOYERS>();
             LoadEmployeeDataFromDatabase();
         }
+
         private void RestrictAccessBasedOnAccountType()
         {
             if (!Account_Type) // Nếu không phải là quản lý
@@ -33,11 +36,10 @@ namespace QLQA
                 btn_Them.Enabled = false;
                 btn_Sua.Enabled = false;
                 btn_Xoa.Enabled = false;
-                // Vô hiệu hóa lựa chọn kiểu tài khoản
-                //radioButtonQL.Enabled = false;
-                //radioButtonNV.Enabled = false;
+                btn_Anh.Enabled = false;
             }
         }
+
         private void LoadEmployeeDataFromDatabase()
         {
             try
@@ -61,9 +63,8 @@ namespace QLQA
             {
                 foreach (var item in employees)
                 {
-                    // Truy cập tài khoản từ ACCOUNT dựa vào MaNV
-                    var account = db.ACCOUNT.FirstOrDefault(acc => acc.MaNV == item.MaNV); // Lấy tài khoản liên quan
-                    string accountType = account?.Account_Type == true ? "Quản lý" : "Nhân viên"; // Kiểm tra kiểu tài khoản
+                    var account = db.ACCOUNT.FirstOrDefault(acc => acc.MaNV == item.MaNV);
+                    string accountType = account?.Account_Type == true ? "Quản lý" : "Nhân viên";
 
                     int index = dataGridViewNV.Rows.Add();
                     dataGridViewNV.Rows[index].Cells[0].Value = item.MaNV;
@@ -71,10 +72,15 @@ namespace QLQA
                     dataGridViewNV.Rows[index].Cells[2].Value = item.GioiTinh ? "Nam" : "Nữ";
                     dataGridViewNV.Rows[index].Cells[3].Value = item.NgaySinh.ToString("dd/MM/yyyy");
                     dataGridViewNV.Rows[index].Cells[4].Value = item.SoDienThoai;
-                    dataGridViewNV.Rows[index].Cells[5].Value = accountType; // Thêm cột cho kiểu tài khoản
+                    dataGridViewNV.Rows[index].Cells[5].Value = accountType;
+                    dataGridViewNV.Rows[index].Cells[6].Value = item.Anh; // Hiển thị đường dẫn ảnh
+
+
+
                 }
             }
         }
+
 
 
 
@@ -93,7 +99,6 @@ namespace QLQA
                 MessageBox.Show("Vui lòng chọn giới tính: Nam hoặc Nữ.");
                 return false;
             }
-
 
             if (dtpNgaysinh.Value > DateTime.Now)
             {
@@ -141,42 +146,28 @@ namespace QLQA
             {
                 MaNV = textBox_MaNV.Text,
                 TenNV = textBox_TenNV.Text,
-                GioiTinh = radioButtonNam.Checked, // Sử dụng radioButton cho giới tính
+                GioiTinh = radioButtonNam.Checked,
                 NgaySinh = dtpNgaysinh.Value,
-                SoDienThoai = maskedTextBox_SDT.Text
+                SoDienThoai = maskedTextBox_SDT.Text,
+                Anh = currentEmployer.Anh // Lưu thuộc tính Anh vào model EMPLOYERS
             };
         }
-
-
-        private void DisplayValidationErrors(System.Data.Entity.Validation.DbEntityValidationException ex)
-        {
-            foreach (var validationError in ex.EntityValidationErrors)
-            {
-                foreach (var error in validationError.ValidationErrors)
-                {
-                    MessageBox.Show($"Property: {error.PropertyName} Error: {error.ErrorMessage}");
-                }
-            }
-        }
-
-        private void ResetInputFields()
-        {
-            textBox_MaNV.Clear();
-            textBox_TenNV.Clear();
-            maskedTextBox_SDT.Clear();
-            radioButtonNam.Checked = false;
-            radioButtonNu.Checked = false;
-            dtpNgaysinh.Value = DateTime.Now;
-        }
-
 
         private void btn_Them_Click(object sender, EventArgs e)
         {
             if (ValidateInput())
             {
                 EMPLOYERS newEmployee = CreateEmployeeFromInput();
+
                 using (var db = new QuanLyQuanAoEntities())
                 {
+                    // Kiểm tra trùng mã nhân viên
+                    if (db.EMPLOYERS.Any(emp => emp.MaNV == newEmployee.MaNV))
+                    {
+                        MessageBox.Show("Đã tồn tại. Vui lòng nhập mã khác.");
+                        return;
+                    }
+
                     db.EMPLOYERS.Add(newEmployee);
 
                     try
@@ -195,6 +186,8 @@ namespace QLQA
         }
 
 
+
+
         private void btn_Sua_Click(object sender, EventArgs e)
         {
             if (ValidateInput())
@@ -210,12 +203,17 @@ namespace QLQA
                         employeeToUpdate.GioiTinh = radioButtonNam.Checked;
                         employeeToUpdate.NgaySinh = dtpNgaysinh.Value;
                         employeeToUpdate.SoDienThoai = maskedTextBox_SDT.Text;
-
+                        employeeToUpdate.Anh = pictureBoxAnh.Text; // Cập nhật đường dẫn ảnh
                         // Cập nhật kiểu tài khoản
                         ACCOUNT accountToUpdate = db.ACCOUNT.FirstOrDefault(acc => acc.MaNV == employeeToUpdate.MaNV);
                         if (accountToUpdate != null)
                         {
                             accountToUpdate.Account_Type = radioButtonQL.Checked; // Cập nhật kiểu tài khoản
+                        }
+                        // Cập nhật đường dẫn ảnh nếu đã chọn ảnh mới
+                        if (!string.IsNullOrEmpty(currentEmployer.Anh))
+                        {
+                            employeeToUpdate.Anh = currentEmployer.Anh;
                         }
 
                         try
@@ -234,6 +232,7 @@ namespace QLQA
                     {
                         MessageBox.Show("Không tìm thấy nhân viên để cập nhật.");
                     }
+
                 }
             }
         }
@@ -305,15 +304,14 @@ namespace QLQA
                 radioButtonNam.Checked = gioiTinh == "Nam";
                 radioButtonNu.Checked = gioiTinh == "Nữ";
 
-
-                // Điền ngày sinh
-                if (DateTime.TryParse(row.Cells["DateBirth"].Value?.ToString(), out DateTime ngaySinh))
+                // Điền ngày sinh, kiểm tra dữ liệu null hoặc không hợp lệ
+                if (row.Cells["DateBirth"].Value != null && DateTime.TryParse(row.Cells["DateBirth"].Value.ToString(), out DateTime ngaySinh))
                 {
                     dtpNgaysinh.Value = ngaySinh;
                 }
                 else
                 {
-                    dtpNgaysinh.Value = DateTime.Now;
+                    dtpNgaysinh.Value = DateTime.Now; // Gán giá trị mặc định nếu không có ngày sinh
                 }
 
                 // Điền số điện thoại
@@ -335,16 +333,164 @@ namespace QLQA
                         radioButtonNV.Checked = false;
                     }
                 }
+
+                // Hiển thị ảnh nếu có
+                string imagePath = row.Cells["Pic"].Value?.ToString(); // Lấy đường dẫn ảnh từ cột "Anh"
+                if (!string.IsNullOrEmpty(imagePath))
+                {
+                    try
+                    {
+                        pictureBoxAnh.Image = Image.FromFile(imagePath); // Hiển thị ảnh trong PictureBox
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Không thể tải ảnh: {ex.Message}");
+                        pictureBoxAnh.Image = null; // Đặt ảnh mặc định nếu không thể tải ảnh
+                    }
+                }
+                else
+                {
+                    pictureBoxAnh.Image = null; // Nếu không có ảnh, để PictureBox trống hoặc hiển thị ảnh mặc định
+                }
             }
         }
 
 
+
         private void btn_TimKiem_Click(object sender, EventArgs e)
         {
-            fTimkiemNV formTimKiem = new fTimkiemNV();
-            formTimKiem.ShowDialog(); // Mở form tìm kiếm dưới dạng hộp thoại
+            string maNVKeyword = textBox_MaNV.Text.Trim();
+            string tenNVKeyword = textBox_TenNV.Text.Trim();
+            string sdtKeyword = maskedTextBox_SDT.Text.Trim();
+
+            // Vô hiệu hóa các trường nhập liệu
+            radioButtonNam.Enabled = false;
+            radioButtonNu.Enabled = false;
+            dtpNgaysinh.Enabled = false;
+            radioButtonQL.Enabled = false;
+            radioButtonNV.Enabled = false;
+            btn_Them.Enabled = false;
+            btn_Sua.Enabled = false;
+            btn_Xoa.Enabled = false;
+
+            // Kiểm tra nếu tất cả các trường đều trống
+            if (string.IsNullOrWhiteSpace(maNVKeyword) && string.IsNullOrWhiteSpace(tenNVKeyword) && string.IsNullOrWhiteSpace(sdtKeyword))
+            {
+                MessageBox.Show("Vui lòng nhập mã nhân viên, tên nhân viên hoặc số điện thoại để tìm kiếm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Thực hiện tìm kiếm
+            SearchEmployee(maNVKeyword, tenNVKeyword, sdtKeyword);
         }
-        
+
+        private void SearchEmployee(string maNVKeyword, string tenNVKeyword, string sdtKeyword)
+        {
+            using (var db = new QuanLyQuanAoEntities())
+            {
+                // Tìm kiếm nhân viên theo mã nhân viên, tên nhân viên và số điện thoại
+                var filteredEmployees = db.EMPLOYERS.AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(maNVKeyword))
+                {
+                    filteredEmployees = filteredEmployees.Where(emp => emp.MaNV.Contains(maNVKeyword));
+                }
+
+                if (!string.IsNullOrWhiteSpace(tenNVKeyword))
+                {
+                    filteredEmployees = filteredEmployees.Where(emp => emp.TenNV.Contains(tenNVKeyword));
+                }
+
+                if (!string.IsNullOrWhiteSpace(sdtKeyword))
+                {
+                    filteredEmployees = filteredEmployees.Where(emp => emp.SoDienThoai.Contains(sdtKeyword));
+                }
+
+                var results = filteredEmployees.ToList();
+
+                if (results.Count > 0)
+                {
+                    // Hiển thị thông tin của nhân viên đầu tiên tìm thấy
+                    ShowEmployeeInfo(results.First());
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy nhân viên nào phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+
+        private void ShowEmployeeInfo(EMPLOYERS employee)
+        {
+            if (employee == null) return;
+
+            StringBuilder info = new StringBuilder();
+            info.AppendLine($"Mã NV: {employee.MaNV}");
+            info.AppendLine($"Tên NV: {employee.TenNV}");
+            info.AppendLine($"Giới Tính: {(employee.GioiTinh ? "Nam" : "Nữ")}");
+            info.AppendLine($"Ngày Sinh: {employee.NgaySinh.ToString("dd/MM/yyyy")}");
+            info.AppendLine($"Số Điện Thoại: {employee.SoDienThoai}");
+
+            // Truy cập tài khoản từ ACCOUNT dựa vào MaNV
+            using (var db = new QuanLyQuanAoEntities())
+            {
+                var account = db.ACCOUNT.FirstOrDefault(acc => acc.MaNV == employee.MaNV);
+                string accountType = account?.Account_Type == true ? "Quản lý" : "Nhân viên"; // Kiểm tra kiểu tài khoản
+                info.AppendLine($"Kiểu Tài Khoản: {accountType}");
+            }
+
+            // Kiểm tra nếu đường dẫn ảnh không rỗng
+            if (!string.IsNullOrEmpty(employee.Anh)) // Giả sử employee.Anh chứa đường dẫn đến ảnh
+            {
+                try
+                {
+                    // Tải ảnh từ đường dẫn và hiển thị trên PictureBox
+                    pictureBoxAnh.Image = Image.FromFile(employee.Anh);
+                }
+                catch (Exception ex)
+                {
+                    // Xử lý lỗi nếu không thể tải ảnh từ đường dẫn
+                    MessageBox.Show($"Không thể tải ảnh: {ex.Message}");
+                }
+            }
+            else
+            {
+                // Nếu không có ảnh, có thể để trống PictureBox hoặc hiển thị ảnh mặc định
+                pictureBoxAnh.Image = null; // Hoặc có thể gán ảnh mặc định như hình ảnh placeholder
+            }
+
+
+            MessageBox.Show(info.ToString(), "Thông Tin Nhân Viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void SearchEmployee(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                LoadEmployeeDataFromDatabase(); // Nếu không có từ khóa, tải lại dữ liệu
+                return;
+            }
+
+            using (var db = new QuanLyQuanAoEntities())
+            {
+                // Tìm kiếm nhân viên theo mã nhân viên hoặc tên nhân viên
+                var filteredEmployees = db.EMPLOYERS
+                    .Where(emp => emp.MaNV.Contains(keyword) || emp.TenNV.Contains(keyword))
+                    .ToList();
+
+                if (filteredEmployees.Count > 0)
+                {
+                    // Hiển thị thông tin của nhân viên đầu tiên tìm thấy
+                    ShowEmployeeInfo(filteredEmployees.First());
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy nhân viên nào phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
@@ -370,5 +516,95 @@ namespace QLQA
         {
 
         }
+
+        private void btn_Lammoi_Click(object sender, EventArgs e)
+        {
+            ResetInputFields();          // Xóa dữ liệu trên các trường nhập liệu
+            LoadEmployeeDataFromDatabase(); // Tải lại danh sách nhân viên từ cơ sở dữ liệu
+
+            if (!radioButtonNam.Enabled)
+                radioButtonNam.Enabled = true;
+
+            if (!radioButtonNu.Enabled)
+                radioButtonNu.Enabled = true;
+
+            if (!dtpNgaysinh.Enabled)
+                dtpNgaysinh.Enabled = true;
+
+            if (!radioButtonQL.Enabled)
+                radioButtonQL.Enabled = true;
+
+            if (!radioButtonNV.Enabled)
+                radioButtonNV.Enabled = true;
+
+            if (!btn_Them.Enabled)
+                btn_Them.Enabled = true;
+
+            if (!btn_Sua.Enabled)
+                btn_Sua.Enabled = true;
+
+            if (!btn_Xoa.Enabled)
+                btn_Xoa.Enabled = true;
+
+            // Kích hoạt lại các trường nhập liệu
+            textBox_MaNV.Enabled = true;
+            textBox_TenNV.Enabled = true;
+            maskedTextBox_SDT.Enabled = true;
+        }
+        // Đối tượng EMPLOYERS hiện tại để lưu trữ thông tin nhân viên
+        private EMPLOYERS currentEmployer = new EMPLOYERS();
+
+
+        private void DisplayValidationErrors(System.Data.Entity.Validation.DbEntityValidationException ex)
+        {
+            foreach (var validationError in ex.EntityValidationErrors)
+            {
+                foreach (var error in validationError.ValidationErrors)
+                {
+                    MessageBox.Show($"Property: {error.PropertyName} Error: {error.ErrorMessage}");
+                }
+            }
+        }
+
+        private void ResetInputFields()
+        {
+            textBox_MaNV.Clear();
+            textBox_TenNV.Clear();
+            maskedTextBox_SDT.Clear();
+            pictureBoxAnh.Image = null;
+            radioButtonNam.Checked = false;
+            radioButtonNu.Checked = false;
+            dtpNgaysinh.Value = DateTime.Now;
+            radioButtonQL.Checked = false;
+            radioButtonNV.Checked = false;
+
+        }
+        private void btn_Anh_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+                openFileDialog.Title = "Chọn ảnh nhân viên";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Lưu đường dẫn ảnh vào thuộc tính Anh của currentEmployer
+                    currentEmployer.Anh = openFileDialog.FileName;
+
+                    // Hiển thị ảnh trong PictureBox (nếu có)
+                    try
+                    {
+                        pictureBoxAnh.Image = Image.FromFile(currentEmployer.Anh);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Không thể tải ảnh: {ex.Message}");
+                    }
+                }
+            }
+        }
+
+
+
     }
 }
