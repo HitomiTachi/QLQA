@@ -372,6 +372,7 @@ namespace QLQA
             btn_Them.Enabled = false;
             btn_Sua.Enabled = false;
             btn_Xoa.Enabled = false;
+            btn_Anh.Enabled = false;
 
             // Kiểm tra nếu tất cả các trường đều trống
             if (string.IsNullOrWhiteSpace(maNVKeyword) && string.IsNullOrWhiteSpace(tenNVKeyword) && string.IsNullOrWhiteSpace(sdtKeyword))
@@ -493,38 +494,25 @@ namespace QLQA
 
         private void btn_Lammoi_Click(object sender, EventArgs e)
         {
-            ResetInputFields();          // Xóa dữ liệu trên các trường nhập liệu
-            LoadEmployeeDataFromDatabase(); // Tải lại danh sách nhân viên từ cơ sở dữ liệu
+            // Reset all input fields
+            ResetInputFields();
 
-            if (!radioButtonNam.Enabled)
-                radioButtonNam.Enabled = true;
+            // Reload the employee data from the database
+            LoadEmployeeDataFromDatabase();
 
-            if (!radioButtonNu.Enabled)
-                radioButtonNu.Enabled = true;
+            // Create a list of controls to be re-enabled
+            var controlsToEnable = new Control[] {
+        radioButtonNam, radioButtonNu, dtpNgaysinh, radioButtonQL, radioButtonNV,
+        btn_Them, btn_Sua, btn_Xoa, btn_Anh, textBox_MaNV, textBox_TenNV, maskedTextBox_SDT
+    };
 
-            if (!dtpNgaysinh.Enabled)
-                dtpNgaysinh.Enabled = true;
-
-            if (!radioButtonQL.Enabled)
-                radioButtonQL.Enabled = true;
-
-            if (!radioButtonNV.Enabled)
-                radioButtonNV.Enabled = true;
-
-            if (!btn_Them.Enabled)
-                btn_Them.Enabled = true;
-
-            if (!btn_Sua.Enabled)
-                btn_Sua.Enabled = true;
-
-            if (!btn_Xoa.Enabled)
-                btn_Xoa.Enabled = true;
-
-            // Kích hoạt lại các trường nhập liệu
-            textBox_MaNV.Enabled = true;
-            textBox_TenNV.Enabled = true;
-            maskedTextBox_SDT.Enabled = true;
+            // Enable all the controls
+            foreach (var control in controlsToEnable)
+            {
+                control.Enabled = true;
+            }
         }
+
         // Đối tượng EMPLOYERS hiện tại để lưu trữ thông tin nhân viên
         private EMPLOYERS currentEmployer = new EMPLOYERS();
 

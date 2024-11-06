@@ -1,68 +1,199 @@
 ﻿using QLQA.DAL;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace QLQA
 {
     public partial class fTaikhoan : Form
     {
         private QuanLyQuanAoEntities dbContext = new QuanLyQuanAoEntities();
+
         public fTaikhoan()
         {
             InitializeComponent();
+            InitializeListView();
+            LoadDataFromDatabase();
+        }
 
-            // Thiết lập các cột cho ListView
+        // Khởi tạo các cột cho ListView
+        private void InitializeListView()
+        {
             listViewTK.Columns.Add("Username", 100, HorizontalAlignment.Left);
             listViewTK.Columns.Add("Password", 100, HorizontalAlignment.Left);
             listViewTK.Columns.Add("Mã NV", 100, HorizontalAlignment.Left);
-
-            // Thiết lập chế độ hiển thị chi tiết (dạng bảng)
+            listViewTK.Columns.Add("Tên hiển thị", 150, HorizontalAlignment.Left);
             listViewTK.View = View.Details;
             listViewTK.FullRowSelect = true;
-            LoadDataFromDatabase();
         }
-        // Hàm để tải dữ liệu từ cơ sở dữ liệu
+
+        // Tải dữ liệu từ cơ sở dữ liệu vào ListView
         private void LoadDataFromDatabase()
         {
-            dbContext = new QuanLyQuanAoEntities();
-            var accounts = dbContext.ACCOUNT.ToList();
-
-            listViewTK.Items.Clear();
-            foreach (var account in accounts)
+            try
             {
-                AddAccountToListView(account);
+                var accounts = dbContext.ACCOUNT.ToList();
+                listViewTK.Items.Clear();
+
+                foreach (var account in accounts)
+                {
+                    AddAccountToListView(account);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu tài khoản: " + ex.Message);
             }
         }
-        // Hàm để thêm một tài khoản vào ListView
+
+        // Thêm một tài khoản vào ListView
         private void AddAccountToListView(ACCOUNT account)
         {
-            ListViewItem item = new ListViewItem(account.Username);
-            item.SubItems.Add(account.Password);
-            item.SubItems.Add(account.MaNV);
+            var employee = dbContext.EMPLOYERS.FirstOrDefault(e => e.MaNV == account.MaNV);
+            string employeeName = employee != null ? employee.TenNV : "Chưa có tên";
+
+            var item = new ListViewItem(account.Username)
+            {
+                SubItems = { account.Password, account.MaNV, employeeName }
+            };
             listViewTK.Items.Add(item);
         }
 
-        private void BindListView(List<ACCOUNT> accounts)
+        // Xử lý khi người dùng chọn một mục trong ListView
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listViewTK.Items.Clear();
-            foreach (var account in accounts)
+            if (listViewTK.SelectedItems.Count == 0) return;
+
+            var selectedItem = listViewTK.SelectedItems[0];
+            textBoxUsername.Text = selectedItem.Text;
+            textBoxPassword.Text = selectedItem.SubItems[1].Text;
+            textBoxMaNV.Text = selectedItem.SubItems[2].Text;
+            textBoxTenNV.Text = selectedItem.SubItems[3].Text;
+        }
+
+
+        // Xóa tài khoản dựa trên mã nhân viên
+        private void btn_Xoa_Click(object sender, EventArgs e)
+        {
+            try
             {
-                var item = new ListViewItem(account.Username);
-                item.SubItems.Add(account.Password);
-                item.SubItems.Add(account.MaNV);
-                listViewTK.Items.Add(item);
+                var maNV = textBoxMaNV.Text;
+                var account = dbContext.ACCOUNT.FirstOrDefault(acc => acc.MaNV == maNV);
+
+                if (account != null)
+                {
+                    dbContext.ACCOUNT.Remove(account);
+                    dbContext.SaveChanges();
+                    LoadDataFromDatabase();
+                    MessageBox.Show("Xóa tài khoản thành công!");
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy tài khoản để xóa.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xóa tài khoản: " + ex.Message);
             }
         }
 
+        // Cập nhật tài khoản
+        private void btn_Sua_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string username = textBoxUsername.Text;
+                string password = textBoxPassword.Text;
+                string maNV = textBoxMaNV.Text;
+                string tenNV = textBoxTenNV.Text;
+
+                // Find the account by MaNV or Username (you can use one depending on the flow)
+                var account = dbContext.ACCOUNT.FirstOrDefault(acc => acc.MaNV == maNV || acc.Username == username);
+
+                if (account != null)
+                {
+                    // Update account details
+                    account.Username = username;
+                    account.Password = password;
+                    account.MaNV = maNV;
+
+                    // Update employee details (if applicable)
+                    var employee = dbContext.EMPLOYERS.FirstOrDefault(emt => emt.MaNV == maNV);
+                    if (employee != null)
+                    {
+                        employee.TenNV = tenNV;
+                    }
+
+                    // Save changes to database
+                    dbContext.SaveChanges();
+
+                    // Update UI to reflect changes
+                    if (listViewTK.SelectedItems.Count > 0)
+                    {
+                        ListViewItem selectedItem = listViewTK.SelectedItems[0];
+                        selectedItem.Text = username;
+                        selectedItem.SubItems[1].Text = password;
+                        selectedItem.SubItems[2].Text = maNV;
+                        selectedItem.SubItems[3].Text = tenNV;
+                    }
+
+                    MessageBox.Show("Tài khoản đã được cập nhật thành công.", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearInputFields();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy tài khoản với mã nhân viên hoặc tên đăng nhập đã nhập.", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi cập nhật tài khoản: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Lưu thông tin tài khoản đã chỉnh sửa vào cơ sở dữ liệu
+        private void btn_LuuSua_Click(object sender, EventArgs e)
+        {
+            if (listViewTK.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listViewTK.SelectedItems[0];
+                var account = dbContext.ACCOUNT.FirstOrDefault(a => a.Username == selectedItem.Text);
+
+                if (account != null)
+                {
+                    account.Username = textBoxUsername.Text;
+                    account.Password = textBoxPassword.Text;
+                    account.MaNV = textBoxMaNV.Text;
+
+                    // Cập nhật tên nhân viên nếu có
+                    var employee = dbContext.EMPLOYERS.FirstOrDefault(emt => emt.MaNV == account.MaNV);
+                    if (employee != null)
+                    {
+                        employee.TenNV = textBoxTenNV.Text;
+                    }
+
+                    dbContext.SaveChanges();
+
+                    // Cập nhật ListView với thông tin mới
+                    selectedItem.Text = textBoxUsername.Text;
+                    selectedItem.SubItems[1].Text = textBoxPassword.Text;
+                    selectedItem.SubItems[2].Text = textBoxMaNV.Text;
+                    selectedItem.SubItems[3].Text = textBoxTenNV.Text;
+
+                    MessageBox.Show("Tài khoản đã được chỉnh sửa thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Xóa các trường nhập liệu sau khi lưu
+                    ClearInputFields();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Chưa chọn tài khoản để chỉnh sửa", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        // Kiểm tra tính hợp lệ của dữ liệu nhập vào
         private bool ValidateInput()
         {
             if (string.IsNullOrWhiteSpace(textBoxMaNV.Text) || string.IsNullOrWhiteSpace(textBoxUsername.Text) || string.IsNullOrWhiteSpace(textBoxPassword.Text))
@@ -73,173 +204,13 @@ namespace QLQA
             return true;
         }
 
+        // Xóa các trường nhập liệu
         private void ClearInputFields()
         {
             textBoxMaNV.Clear();
             textBoxUsername.Clear();
             textBoxPassword.Clear();
             textBoxTenNV.Clear();
-
         }
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listViewTK.SelectedItems.Count == 0) return;
-
-            var selectedItem = listViewTK.SelectedItems[0];
-            textBoxUsername.Text = selectedItem.Text;
-            textBoxPassword.Text = selectedItem.SubItems[1].Text;
-            textBoxMaNV.Text = selectedItem.SubItems[2].Text;
-        }
-
-        private void btn_Them_Click(object sender, EventArgs e)
-        {
-            // Kiểm tra xem người dùng đã nhập đủ thông tin chưa
-            if (string.IsNullOrEmpty(textBoxMaNV.Text) || string.IsNullOrEmpty(textBoxUsername.Text) || string.IsNullOrEmpty(textBoxPassword.Text))
-            {
-                MessageBox.Show("Bạn chưa nhập đầy đủ thông tin!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Kiểm tra xem Username có tồn tại trong bảng ACCOUNT không
-            var existingAccount = dbContext.ACCOUNT.FirstOrDefault(a => a.Username == textBoxUsername.Text);
-            if (existingAccount != null)
-            {
-                MessageBox.Show("Tài khoản này đã tồn tại!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                // Nếu MaNV hợp lệ và Username chưa tồn tại, tiếp tục thêm tài khoản vào bảng ACCOUNT
-                ACCOUNT newAccount = new ACCOUNT
-                {
-                    Username = textBoxUsername.Text,
-                    Password = textBoxPassword.Text, // Use hashing here for better security
-                    MaNV = textBoxMaNV.Text
-                };
-
-                dbContext.ACCOUNT.Add(newAccount);
-                dbContext.SaveChanges();
-
-                // Tạo mới một ListViewItem
-                ListViewItem lstvItem = new ListViewItem
-                {
-                    Text = textBoxUsername.Text
-                };
-                lstvItem.SubItems.Add(textBoxPassword.Text); // Consider not displaying the password
-                lstvItem.SubItems.Add(textBoxMaNV.Text);
-                listViewTK.Items.Add(lstvItem);
-
-                // Hiển thị thông báo thêm thành công
-                MessageBox.Show("Bạn đã thêm tài khoản thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Xóa dữ liệu trong các ô nhập sau khi thêm xong
-                textBoxMaNV.Clear();
-                textBoxUsername.Clear();
-                textBoxPassword.Clear();
-            }
-            catch (Exception ex)
-            {
-                // Log or show the exception message if there is an error
-                MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
-        private void btn_Xoa_Click(object sender, EventArgs e)
-        {
-            // Kiểm tra xem có mục nào được chọn trong ListView không
-            if (listViewTK.SelectedItems.Count > 0)
-            {
-                // Lấy mục được chọn
-                ListViewItem selectedItem = listViewTK.SelectedItems[0];
-
-                // Tìm tài khoản trong cơ sở dữ liệu và xóa
-                var accountToDelete = dbContext.ACCOUNT.FirstOrDefault(a => a.Username == selectedItem.Text);
-                if (accountToDelete != null)
-                {
-                    dbContext.ACCOUNT.Remove(accountToDelete);
-                    dbContext.SaveChanges();  // Lưu thay đổi vào cơ sở dữ liệu
-
-                    // Xóa mục trong ListView
-                    listViewTK.Items.Remove(selectedItem);
-
-                    MessageBox.Show("Tài khoản đã được xóa thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy tài khoản", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng chọn tài khoản cần xóa", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void btn_Sua_Click(object sender, EventArgs e)
-        {
-            // Kiểm tra xem có mục nào được chọn trong ListView không
-            if (listViewTK.SelectedItems.Count > 0)
-            {
-                // Lấy mục được chọn
-                ListViewItem selectedItem = listViewTK.SelectedItems[0];
-
-                // Cập nhật các ô nhập liệu với thông tin từ mục đã chọn
-                textBoxUsername.Text = selectedItem.Text;
-                textBoxPassword.Text = selectedItem.SubItems[1].Text;
-                textBoxMaNV.Text = selectedItem.SubItems[2].Text;
-
-                // Sau khi chỉnh sửa, người dùng bấm nút "Lưu" để cập nhật lại vào ListView
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng chọn tài khoản cần chỉnh sửa", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void btn_LuuSua_Click(object sender, EventArgs e)
-        {
-            // Kiểm tra xem có mục nào được chọn trong ListView không
-            if (listViewTK.SelectedItems.Count > 0)
-            {
-                // Lấy mục được chọn
-                ListViewItem selectedItem = listViewTK.SelectedItems[0];
-
-                // Tìm tài khoản trong cơ sở dữ liệu và cập nhật thông tin
-                var account = dbContext.ACCOUNT.FirstOrDefault(a => a.Username == selectedItem.Text);
-                if (account != null)
-                {
-                    account.Username = textBoxUsername.Text;
-                    account.Password = textBoxPassword.Text;
-                    account.MaNV = textBoxMaNV.Text;
-
-                    dbContext.SaveChanges();  // Lưu thay đổi vào cơ sở dữ liệu
-
-                    // Cập nhật lại thông tin trong ListView
-                    selectedItem.Text = textBoxUsername.Text;
-                    selectedItem.SubItems[1].Text = textBoxPassword.Text;
-                    selectedItem.SubItems[2].Text = textBoxMaNV.Text;
-
-                    MessageBox.Show("Tài khoản đã được chỉnh sửa thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Xóa dữ liệu trong các ô nhập sau khi cập nhật xong
-                    textBoxMaNV.Clear();
-                    textBoxUsername.Clear();
-                    textBoxPassword.Clear();
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy tài khoản", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Chưa chọn tài khoản để chỉnh sửa", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-
-
     }
 }

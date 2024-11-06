@@ -42,7 +42,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Sua = new System.Windows.Forms.Button();
             this.btn_Xoa = new System.Windows.Forms.Button();
-            this.btn_Them = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -176,7 +175,7 @@
             // btn_Sua
             // 
             this.btn_Sua.BackColor = System.Drawing.Color.Transparent;
-            this.btn_Sua.Location = new System.Drawing.Point(400, 356);
+            this.btn_Sua.Location = new System.Drawing.Point(415, 356);
             this.btn_Sua.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Sua.Name = "btn_Sua";
             this.btn_Sua.Size = new System.Drawing.Size(92, 34);
@@ -189,7 +188,7 @@
             // 
             this.btn_Xoa.BackColor = System.Drawing.Color.Transparent;
             this.btn_Xoa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Xoa.Location = new System.Drawing.Point(240, 356);
+            this.btn_Xoa.Location = new System.Drawing.Point(54, 356);
             this.btn_Xoa.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Xoa.Name = "btn_Xoa";
             this.btn_Xoa.Size = new System.Drawing.Size(92, 34);
@@ -197,19 +196,6 @@
             this.btn_Xoa.Text = "Xóa ";
             this.btn_Xoa.UseVisualStyleBackColor = false;
             this.btn_Xoa.Click += new System.EventHandler(this.btn_Xoa_Click);
-            // 
-            // btn_Them
-            // 
-            this.btn_Them.BackColor = System.Drawing.Color.Transparent;
-            this.btn_Them.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Them.Location = new System.Drawing.Point(94, 356);
-            this.btn_Them.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_Them.Name = "btn_Them";
-            this.btn_Them.Size = new System.Drawing.Size(85, 34);
-            this.btn_Them.TabIndex = 8;
-            this.btn_Them.Text = "Thêm ";
-            this.btn_Them.UseVisualStyleBackColor = false;
-            this.btn_Them.Click += new System.EventHandler(this.btn_Them_Click);
             // 
             // fTaikhoan
             // 
@@ -221,7 +207,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_Sua);
             this.Controls.Add(this.btn_Xoa);
-            this.Controls.Add(this.btn_Them);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fTaikhoan";
@@ -249,6 +234,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_Sua;
         private System.Windows.Forms.Button btn_Xoa;
-        private System.Windows.Forms.Button btn_Them;
     }
 }
